@@ -1,0 +1,19 @@
+encrypted_message = input()
+command = input()
+while command != "Decode":
+    action = command.split("|")
+    if action[0] == "Move":
+        number_of_letters = int(action[1])
+        substring = encrypted_message[:number_of_letters:]
+        encrypted_message = encrypted_message.replace(substring, "")
+        encrypted_message = encrypted_message + substring
+    elif action[0] == "Insert":
+        index , value = int(action[1]), action[2]
+        encrypted_message = encrypted_message[:index:] + value + encrypted_message[index::]
+    elif action[0] == "ChangeAll":
+        searched_string, replacement = action[1], action[2]
+        for item in encrypted_message:
+            if item == searched_string:
+                encrypted_message = encrypted_message.replace(searched_string, replacement)
+    command = input()
+print(f"The decrypted message is: {encrypted_message}")
